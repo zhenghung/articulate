@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
 import io from 'socket.io-client';
-import {SobaParentContainer} from 'soba';
+import {SobaParentContainer} from 'soba-game';
 import HomePage from './components/HomePage/HomePage.js';
 import RoomLobbyPage from './components/RoomLobbyPage/RoomLobbyPage';
 import JoinRoomPage from './components/JoinRoomPage/JoinRoomPage.js';
@@ -10,9 +10,14 @@ import CreateRoomPage from './components/CreateRoomPage/CreateRoomPage';
 import 'react-toastify/dist/ReactToastify.css';
 import {toast} from 'react-toastify';
 import {
-    BACKEND_ENDPOINT, PAGE_CREATE, PAGE_GAME,
-    PAGE_HOME, PAGE_JOIN, PAGE_LOBBY,
-    SOCKET_EMIT_BROADCAST_TOAST, SOCKET_ON_GET_TOAST
+    BACKEND_ENDPOINT,
+    PAGE_CREATE,
+    PAGE_GAME,
+    PAGE_HOME,
+    PAGE_JOIN,
+    PAGE_LOBBY,
+    SOCKET_EMIT_BROADCAST_TOAST,
+    SOCKET_ON_GET_TOAST,
 } from './properties';
 
 const socketConnect = io(BACKEND_ENDPOINT, {transports: ['websocket']});

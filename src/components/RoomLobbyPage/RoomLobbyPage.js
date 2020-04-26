@@ -4,15 +4,17 @@ import '../../CSSFiles/RoomLobbyPage.css';
 import {CREATE_ROOM, PAGE_GAME, PAGE_HOME, PAGE_JOIN, RESPONSE_JSON, STATE_GAME, STATE_LOBBY} from '../../properties';
 import PlayerListContainer from './PlayerListContainer';
 import {CheckEnoughPlayers, PostRequest} from '../Util/util';
-import {Keys, SobaTeamLobbyContainer} from 'soba';
+import {Keys, SobaTeamLobbyContainer} from 'soba-game';
 import {toast} from 'react-toastify';
 
 function RoomLobbyPage(
     {
-        setPage, socket, socketId, isHost, playerName,
-        numberOfTeams, roomCode, setRoomCode, gameState,
-        setGameState, playerTeam, setPlayerTeam, broadcastGameState,
-        joinRoom, error, isLoading,
+        /** Required props for SobaTeamLobbyContainer*/
+        socket, isHost, gameState, setGameState,
+        setPlayerTeam, playerName, playerTeam, broadcastGameState,
+
+        numberOfTeams, roomCode, setRoomCode, setPage, socketId,
+        error, isLoading, changeTeam, joinRoom,
     },
 ) {
     /**
@@ -115,13 +117,8 @@ function RoomLobbyPage(
                             </label>
                             <label className="Lobby-Label">List of Players:</label>
                             <PlayerListContainer
-                                socket={socket}
-                                playerName={playerName}
                                 gameState={gameState}
-                                setGameState={setGameState}
-                                setPlayerTeam={setPlayerTeam}
-                                playerTeam={playerTeam}
-                                broadcastGameState={broadcastGameState}
+                                changeTeam={changeTeam}
                             />
                         </div>
                         <div id="Lobby-BtnDiv">
@@ -129,7 +126,7 @@ function RoomLobbyPage(
                                 isHost &&
                                 <button className="Lobby-Btns" type="button" id="Lobby-PlayBtn"
                                         onClick={handleStartGame}
-                                        disabled={!CheckEnoughPlayers(numberOfTeams, gameState.teams)}>
+                                        disabled={!CheckEnoughPlayers(gameState.teams)}>
                                     Play!
                                 </button>}
                             <button className="Lobby-Btns" id="Lobby-CancelBtn" onClick={handleCancel}>
